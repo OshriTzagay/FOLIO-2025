@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Space Grotesk', 'sans-serif'],
-        mono: ['JetBrains Mono', 'monospace'],
+        sans: ['Outfit', 'sans-serif'],
+        mono: ['Fira Code', 'monospace'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -54,6 +54,8 @@ export default {
         glow: "hsl(var(--glow))",
         "glow-secondary": "hsl(var(--glow-secondary))",
         "code-bg": "hsl(var(--code-bg))",
+        neon: "hsl(var(--neon))",
+        "neon-secondary": "hsl(var(--neon-secondary))",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -93,6 +95,15 @@ export default {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-5px)" },
         },
+        "glow-pulse": {
+          "0%, 100%": { opacity: "0.5" },
+          "50%": { opacity: "1" },
+        },
+        "float-rotate": {
+          "0%, 100%": { transform: "translateY(0) rotate(0deg)" },
+          "25%": { transform: "translateY(-10px) rotate(2deg)" },
+          "75%": { transform: "translateY(-5px) rotate(-2deg)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -103,6 +114,8 @@ export default {
         "scale-in": "scale-in 0.4s ease-out forwards",
         "spin-slow": "spin-slow 20s linear infinite",
         "bounce-subtle": "bounce-subtle 2s ease-in-out infinite",
+        "glow-pulse": "glow-pulse 2s ease-in-out infinite",
+        "float-rotate": "float-rotate 6s ease-in-out infinite",
       },
     },
   },
