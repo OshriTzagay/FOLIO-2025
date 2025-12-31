@@ -1,140 +1,216 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
+import { Sparkles, Zap, Code, Layers } from 'lucide-react';
 
 interface Tech {
   name: string;
-  category: 'frontend' | 'backend' | 'tools';
+  icon?: string;
   color: string;
+  glow: string;
 }
 
 const technologies: Tech[] = [
-  // Frontend
-  { name: 'HTML5', category: 'frontend', color: 'from-orange-500 to-orange-600' },
-  { name: 'CSS3', category: 'frontend', color: 'from-blue-500 to-blue-600' },
-  { name: 'LESS', category: 'frontend', color: 'from-indigo-400 to-indigo-500' },
-  { name: 'SCSS', category: 'frontend', color: 'from-pink-500 to-pink-600' },
-  { name: 'JavaScript', category: 'frontend', color: 'from-yellow-400 to-yellow-500' },
-  { name: 'ES6', category: 'frontend', color: 'from-yellow-500 to-amber-500' },
-  { name: 'TypeScript', category: 'frontend', color: 'from-blue-600 to-blue-700' },
-  { name: 'React.js', category: 'frontend', color: 'from-cyan-400 to-cyan-500' },
-  { name: 'React Native', category: 'frontend', color: 'from-cyan-500 to-teal-500' },
-  { name: 'React Hooks', category: 'frontend', color: 'from-cyan-400 to-blue-500' },
-  { name: 'Redux', category: 'frontend', color: 'from-purple-500 to-purple-600' },
-  { name: 'Redux Toolkit', category: 'frontend', color: 'from-purple-600 to-violet-600' },
-  { name: 'Bootstrap', category: 'frontend', color: 'from-violet-500 to-purple-600' },
-  { name: 'MUI', category: 'frontend', color: 'from-blue-500 to-blue-600' },
-  { name: 'Jest', category: 'tools', color: 'from-red-500 to-red-600' },
+  // Core
+  { name: 'TypeScript', color: 'from-blue-500 to-blue-600', glow: 'shadow-blue-500/50' },
+  { name: 'JavaScript', color: 'from-yellow-400 to-amber-500', glow: 'shadow-yellow-500/50' },
+  { name: 'React.js', color: 'from-cyan-400 to-cyan-600', glow: 'shadow-cyan-500/50' },
+  { name: 'React Native', color: 'from-cyan-500 to-teal-500', glow: 'shadow-teal-500/50' },
+  // State & Data
+  { name: 'Redux', color: 'from-purple-500 to-purple-700', glow: 'shadow-purple-500/50' },
+  { name: 'Redux Toolkit', color: 'from-violet-500 to-purple-600', glow: 'shadow-violet-500/50' },
+  { name: 'React Hooks', color: 'from-sky-400 to-blue-500', glow: 'shadow-sky-500/50' },
+  // Styling
+  { name: 'HTML5', color: 'from-orange-500 to-red-500', glow: 'shadow-orange-500/50' },
+  { name: 'CSS3', color: 'from-blue-500 to-indigo-500', glow: 'shadow-blue-500/50' },
+  { name: 'SCSS', color: 'from-pink-500 to-rose-600', glow: 'shadow-pink-500/50' },
+  { name: 'LESS', color: 'from-indigo-400 to-blue-500', glow: 'shadow-indigo-500/50' },
+  // UI Frameworks
+  { name: 'Bootstrap', color: 'from-violet-600 to-purple-700', glow: 'shadow-violet-500/50' },
+  { name: 'MUI', color: 'from-blue-500 to-blue-700', glow: 'shadow-blue-500/50' },
+  { name: 'ES6+', color: 'from-yellow-500 to-orange-500', glow: 'shadow-yellow-500/50' },
 ];
 
-const categories = [
-  { key: 'frontend', label: 'Frontend', icon: '⚛️' },
-  { key: 'tools', label: 'Testing & Tools', icon: '🛠️' },
-];
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.05,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, scale: 0.8, y: 20 },
+  visible: { 
+    opacity: 1, 
+    scale: 1, 
+    y: 0,
+    transition: { 
+      type: "spring" as const,
+      stiffness: 200,
+      damping: 15
+    } 
+  },
+};
 
 const TechStackSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="tech" className="py-24 relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-grid opacity-50" />
+    <section id="tech" className="py-32 relative overflow-hidden bg-noise">
+      {/* Background decorations */}
+      <div className="absolute inset-0 bg-grid opacity-30" />
       
-      <div className="container mx-auto px-4 relative">
+      {/* Floating orbs */}
+      <motion.div
+        className="absolute top-20 left-20 w-32 h-32 bg-primary/10 rounded-full blur-3xl"
+        animate={{ 
+          scale: [1, 1.3, 1],
+          x: [0, 30, 0],
+          y: [0, -20, 0]
+        }}
+        transition={{ duration: 10, repeat: Infinity }}
+      />
+      <motion.div
+        className="absolute bottom-20 right-20 w-40 h-40 bg-accent/10 rounded-full blur-3xl"
+        animate={{ 
+          scale: [1.2, 1, 1.2],
+          x: [0, -30, 0],
+          y: [0, 20, 0]
+        }}
+        transition={{ duration: 12, repeat: Infinity }}
+      />
+      
+      <div className="container mx-auto px-4 relative z-10">
         <motion.div
           ref={ref}
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6 }}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          variants={containerVariants}
         >
           {/* Section Title */}
-          <div className="text-center mb-16">
-            <motion.span
-              className="font-mono text-primary text-sm mb-4 block"
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.2 }}
-            >
-              {"// Tech Stack"}
-            </motion.span>
-            <motion.h2
-              className="text-4xl md:text-5xl font-bold mb-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.3 }}
-            >
-              <span className="text-gradient">Skills & Technologies</span>
-            </motion.h2>
+          <div className="text-center mb-20">
             <motion.div
-              className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full"
-              initial={{ scaleX: 0 }}
-              animate={isInView ? { scaleX: 1 } : {}}
-              transition={{ delay: 0.4, duration: 0.6 }}
+              className="inline-flex items-center gap-2 glass px-5 py-2 rounded-full mb-6"
+              variants={itemVariants}
+            >
+              <Sparkles className="w-4 h-4 text-primary" />
+              <span className="font-mono text-sm text-muted-foreground">my_skills.tsx</span>
+            </motion.div>
+            
+            <motion.h2
+              className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6"
+              variants={itemVariants}
+            >
+              <span className="text-gradient">Tech Stack</span>
+            </motion.h2>
+            
+            <motion.p
+              className="text-lg text-muted-foreground max-w-md mx-auto"
+              variants={itemVariants}
+            >
+              הטכנולוגיות והכלים שאני עובד איתם יום-יום
+            </motion.p>
+            
+            <motion.div
+              className="w-32 h-1.5 bg-gradient-to-r from-primary via-accent to-primary mx-auto rounded-full mt-8"
+              variants={itemVariants}
             />
           </div>
 
-          {/* Categories */}
-          {categories.map((category, categoryIndex) => {
-            const categoryTechs = technologies.filter(t => t.category === category.key);
-            if (categoryTechs.length === 0) return null;
-
-            return (
+          {/* Tech Grid - Hexagon style */}
+          <motion.div 
+            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6 max-w-5xl mx-auto"
+            variants={containerVariants}
+          >
+            {technologies.map((tech, index) => (
               <motion.div
-                key={category.key}
-                className="mb-12"
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.5 + categoryIndex * 0.2 }}
+                key={tech.name}
+                className="group"
+                variants={itemVariants}
+                whileHover={{ scale: 1.05, zIndex: 10 }}
               >
-                <h3 className="text-xl font-semibold mb-6 flex items-center gap-2">
-                  <span>{category.icon}</span>
-                  <span>{category.label}</span>
-                </h3>
-                
-                <div className="flex flex-wrap gap-3">
-                  {categoryTechs.map((tech, index) => (
-                    <motion.div
-                      key={tech.name}
-                      className="group relative"
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                      transition={{ delay: 0.6 + categoryIndex * 0.2 + index * 0.05 }}
-                      whileHover={{ scale: 1.05, y: -5 }}
-                    >
-                      <div className="relative px-4 py-2 glass rounded-lg font-medium text-sm cursor-default overflow-hidden">
-                        {/* Gradient background on hover */}
-                        <div className={`absolute inset-0 bg-gradient-to-r ${tech.color} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
-                        
-                        {/* Tag syntax decoration */}
-                        <span className="relative z-10 flex items-center gap-1">
-                          <span className="text-primary group-hover:text-white/70 transition-colors">{"<"}</span>
-                          <span className="group-hover:text-white transition-colors">{tech.name}</span>
-                          <span className="text-primary group-hover:text-white/70 transition-colors">{" />"}</span>
-                        </span>
-                      </div>
-                    </motion.div>
-                  ))}
+                <div className="relative">
+                  {/* Glow effect on hover */}
+                  <motion.div
+                    className={`absolute inset-0 bg-gradient-to-r ${tech.color} rounded-2xl blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-500`}
+                  />
+                  
+                  {/* Card */}
+                  <div className={`relative p-5 md:p-6 rounded-2xl glass-strong border border-border/50 group-hover:border-primary/50 transition-all duration-500 overflow-hidden`}>
+                    {/* Shimmer effect */}
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                      <div 
+                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
+                        style={{
+                          animation: 'shimmer 2s ease-in-out infinite',
+                        }}
+                      />
+                    </div>
+                    
+                    {/* Content */}
+                    <div className="relative z-10 text-center">
+                      {/* Icon placeholder with gradient */}
+                      <motion.div 
+                        className={`w-12 h-12 md:w-14 md:h-14 mx-auto mb-3 rounded-xl bg-gradient-to-br ${tech.color} flex items-center justify-center shadow-lg ${tech.glow}`}
+                        whileHover={{ rotate: [0, -5, 5, 0] }}
+                        transition={{ duration: 0.5 }}
+                      >
+                        <Code className="w-6 h-6 md:w-7 md:h-7 text-white" />
+                      </motion.div>
+                      
+                      {/* Name */}
+                      <p className="font-semibold text-sm md:text-base text-foreground group-hover:text-primary transition-colors">
+                        {tech.name}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </motion.div>
-            );
-          })}
+            ))}
+          </motion.div>
 
-          {/* Code snippet decoration */}
+          {/* Stats Section */}
+          <motion.div 
+            className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto"
+            variants={containerVariants}
+          >
+            {[
+              { icon: Code, label: 'Technologies', value: technologies.length.toString(), color: 'text-primary' },
+              { icon: Layers, label: 'Years Experience', value: '3+', color: 'text-accent' },
+              { icon: Zap, label: 'Projects', value: '10+', color: 'text-yellow-500' },
+              { icon: Sparkles, label: 'Focus', value: 'Full-Stack', color: 'text-green-500' },
+            ].map((stat, index) => (
+              <motion.div
+                key={stat.label}
+                className="glass rounded-2xl p-6 text-center group hover-lift"
+                variants={itemVariants}
+              >
+                <stat.icon className={`w-8 h-8 mx-auto mb-3 ${stat.color} group-hover:scale-110 transition-transform`} />
+                <p className="text-3xl md:text-4xl font-bold text-foreground mb-1">{stat.value}</p>
+                <p className="text-sm text-muted-foreground">{stat.label}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Terminal decoration */}
           <motion.div
             className="mt-16 max-w-2xl mx-auto"
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 1 }}
+            variants={itemVariants}
           >
-            <div className="glass rounded-xl p-6 font-mono text-sm">
-              <div className="flex items-center gap-2 mb-4 pb-4 border-b border-border">
-                <div className="w-3 h-3 rounded-full bg-destructive" />
-                <div className="w-3 h-3 rounded-full bg-yellow-500" />
-                <div className="w-3 h-3 rounded-full bg-green-500" />
-                <span className="ml-4 text-muted-foreground">skills.json</span>
+            <div className="glass-strong rounded-2xl p-6 font-mono text-sm overflow-hidden">
+              <div className="flex items-center gap-3 mb-4 pb-4 border-b border-border">
+                <div className="flex gap-2">
+                  <div className="w-3.5 h-3.5 rounded-full bg-red-500 shadow-lg shadow-red-500/50" />
+                  <div className="w-3.5 h-3.5 rounded-full bg-yellow-500 shadow-lg shadow-yellow-500/50" />
+                  <div className="w-3.5 h-3.5 rounded-full bg-green-500 shadow-lg shadow-green-500/50" />
+                </div>
+                <span className="text-muted-foreground flex-1 text-center">~/oshri/skills.json</span>
               </div>
-              <div className="text-muted-foreground overflow-x-auto">
+              <div className="text-muted-foreground space-y-1">
                 <p>{"{"}</p>
                 <p className="pl-4"><span className="text-primary">"totalTechnologies"</span>: <span className="text-accent">{technologies.length}</span>,</p>
                 <p className="pl-4"><span className="text-primary">"primaryFocus"</span>: <span className="text-green-400">"Full-Stack Development"</span>,</p>
