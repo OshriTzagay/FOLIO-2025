@@ -32,7 +32,7 @@ const ScrollButtons = () => {
     <AnimatePresence>
       {showButtons && (
         <motion.div
-          className="fixed bottom-8 right-8 z-50 flex flex-col gap-3"
+          className="fixed bottom-24 right-4 md:bottom-8 md:right-8 z-40 flex flex-col gap-3"
           initial={{ opacity: 0, x: 100 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: 100 }}
