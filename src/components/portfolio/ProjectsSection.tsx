@@ -10,6 +10,7 @@ interface Project {
   description: string;
   tags: string[];
   gradient: string;
+  link?: string;
 }
 
 const projects: Project[] = [
@@ -20,6 +21,7 @@ const projects: Project[] = [
     description: "A complete end-to-end secure and anonymous Marketplace app for retailers and merchants buying wholesale goods.",
     tags: ["React Native", "Redux", "TypeScript", "Full-Stack"],
     gradient: "from-cyan-500 to-blue-600",
+    link: "https://trado.ai/",
   },
   {
     title: "Truckit",
@@ -36,6 +38,7 @@ const projects: Project[] = [
     description: "Comprehensive mobile application for the Ethiopian Israel Football League, serving as a central hub for game-related information, player details, team statistics, and live updates.",
     tags: ["React Native", "Sports", "Real-time", "Mobile"],
     gradient: "from-green-500 to-teal-600",
+    link: "https://play.google.com/store/apps/details?id=com.EIFLeague.mobile",
   },
   {
     title: "Tech-Career",
@@ -44,6 +47,7 @@ const projects: Project[] = [
     description: "Community Social Support Platform for War-Affected Adults. Providing a vital link between war-affected adults and professionals, fostering community resilience and mental well-being.",
     tags: ["React", "Social Impact", "Community", "Full-Stack"],
     gradient: "from-orange-500 to-red-600",
+    link: "https://www.maariv.co.il/business/tech/article-1064496",
   },
 ];
 
@@ -88,12 +92,16 @@ const ProjectsSection = () => {
           {/* Projects Grid */}
           <div className="grid md:grid-cols-2 gap-8">
             {projects.map((project, index) => (
-              <motion.div
+              <motion.a
                 key={project.title}
-                className="group relative"
+                href={project.link}
+                target={project.link ? "_blank" : undefined}
+                rel={project.link ? "noopener noreferrer" : undefined}
+                className={`group relative block ${project.link ? 'cursor-pointer' : 'cursor-default'}`}
                 initial={{ opacity: 0, y: 30 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.5 + index * 0.15 }}
+                whileHover={project.link ? { y: -5 } : {}}
               >
                 <div className="glass rounded-xl overflow-hidden h-full">
                   {/* Gradient header */}
@@ -105,12 +113,14 @@ const ProjectsSection = () => {
                       <span className="font-mono text-4xl font-bold text-muted-foreground/20">
                         {String(index + 1).padStart(2, '0')}
                       </span>
-                      <motion.div
-                        className={`p-3 rounded-lg bg-gradient-to-r ${project.gradient} opacity-80`}
-                        whileHover={{ scale: 1.1, rotate: 5 }}
-                      >
-                        <ExternalLink className="w-5 h-5 text-white" />
-                      </motion.div>
+                      {project.link && (
+                        <motion.div
+                          className={`p-3 rounded-lg bg-gradient-to-r ${project.gradient} opacity-80`}
+                          whileHover={{ scale: 1.1, rotate: 5 }}
+                        >
+                          <ExternalLink className="w-5 h-5 text-white" />
+                        </motion.div>
+                      )}
                     </div>
 
                     {/* Title */}
@@ -149,9 +159,11 @@ const ProjectsSection = () => {
                   </div>
 
                   {/* Hover effect overlay */}
-                  <div className={`absolute inset-0 bg-gradient-to-r ${project.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500 pointer-events-none`} />
+                  {project.link && (
+                    <div className={`absolute inset-0 bg-gradient-to-r ${project.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500 pointer-events-none`} />
+                  )}
                 </div>
-              </motion.div>
+              </motion.a>
             ))}
           </div>
 

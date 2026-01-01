@@ -9,14 +9,19 @@ const ContactSection = () => {
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [copiedPhone, setCopiedPhone] = useState(false);
 
-  const copyToClipboard = (text: string, type: 'email' | 'phone') => {
+  const [copiedLinkedIn, setCopiedLinkedIn] = useState(false);
+
+  const copyToClipboard = (text: string, type: 'email' | 'phone' | 'linkedin') => {
     navigator.clipboard.writeText(text);
     if (type === 'email') {
       setCopiedEmail(true);
       setTimeout(() => setCopiedEmail(false), 2000);
-    } else {
+    } else if (type === 'phone') {
       setCopiedPhone(true);
       setTimeout(() => setCopiedPhone(false), 2000);
+    } else {
+      setCopiedLinkedIn(true);
+      setTimeout(() => setCopiedLinkedIn(false), 2000);
     }
   };
 
@@ -24,18 +29,29 @@ const ContactSection = () => {
     {
       icon: Mail,
       label: "Email",
-      value: "oshritzagay@gmail.com",
-      action: () => copyToClipboard("oshritzagay@gmail.com", "email"),
+      value: "Oshritzagay@gmail.com",
+      action: () => copyToClipboard("Oshritzagay@gmail.com", "email"),
       copied: copiedEmail,
       gradient: "from-cyan-500 to-blue-600",
+      href: "mailto:Oshritzagay@gmail.com",
     },
     {
       icon: Phone,
       label: "Phone",
-      value: "052-636-7723",
-      action: () => copyToClipboard("+972526367723", "phone"),
+      value: "0526367723",
+      action: () => copyToClipboard("0526367723", "phone"),
       copied: copiedPhone,
       gradient: "from-green-500 to-teal-600",
+      href: "tel:+972526367723",
+    },
+    {
+      icon: Linkedin,
+      label: "LinkedIn",
+      value: "Oshri-el Tzagay",
+      action: () => copyToClipboard("https://www.linkedin.com/in/oshri-el-tzagay-873482226/", "linkedin"),
+      copied: copiedLinkedIn,
+      gradient: "from-blue-500 to-indigo-600",
+      href: "https://www.linkedin.com/in/oshri-el-tzagay-873482226/",
     },
   ];
 
@@ -96,12 +112,18 @@ const ContactSection = () => {
 
           {/* Contact Cards */}
           <div className="max-w-2xl mx-auto">
-            <div className="grid sm:grid-cols-2 gap-6 mb-12">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
               {contactMethods.map((method, index) => (
-                <motion.button
+                <motion.a
                   key={method.label}
-                  onClick={method.action}
-                  className="group glass rounded-xl p-6 text-left w-full hover:border-primary/50 transition-all duration-300"
+                  href={method.href}
+                  target={method.href?.startsWith('http') ? '_blank' : undefined}
+                  rel={method.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    method.action();
+                  }}
+                  className="group glass rounded-xl p-6 text-left w-full hover:border-primary/50 transition-all duration-300 cursor-pointer"
                   initial={{ opacity: 0, y: 30 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ delay: 0.6 + index * 0.15 }}
@@ -128,7 +150,7 @@ const ContactSection = () => {
                   <p className="text-xs text-muted-foreground mt-2">
                     {method.copied ? "Copied!" : "Click to copy"}
                   </p>
-                </motion.button>
+                </motion.a>
               ))}
             </div>
 
@@ -140,7 +162,7 @@ const ContactSection = () => {
               transition={{ delay: 0.9 }}
             >
               <a
-                href="mailto:oshritzagay@gmail.com"
+                href="mailto:Oshritzagay@gmail.com"
                 className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-primary to-accent text-primary-foreground font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 hover:scale-105"
               >
                 <Send className="w-5 h-5" />

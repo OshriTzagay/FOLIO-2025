@@ -6,8 +6,8 @@ const Footer = () => {
 
   const socialLinks = [
     { icon: Github, href: '#', label: 'GitHub' },
-    { icon: Linkedin, href: '#', label: 'LinkedIn' },
-    { icon: Mail, href: 'mailto:oshritzagay@gmail.com', label: 'Email' },
+    { icon: Linkedin, href: 'https://www.linkedin.com/in/oshri-el-tzagay-873482226/', label: 'LinkedIn' },
+    { icon: Mail, href: 'mailto:Oshritzagay@gmail.com', label: 'Email' },
   ];
 
   const scrollToTop = () => {

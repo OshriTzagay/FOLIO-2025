@@ -189,29 +189,29 @@ const HeroSection = () => {
             </motion.a>
           </motion.div>
         </motion.div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          className="absolute bottom-10 left-1/2 -translate-x-1/2"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-        >
-          <motion.a 
-            href="#about" 
-            className="flex flex-col items-center gap-3 text-muted-foreground hover:text-primary transition-colors group"
-            whileHover={{ y: 3 }}
-          >
-            <span className="text-sm font-mono group-hover:text-primary">scroll down</span>
-            <motion.div
-              animate={{ y: [0, 8, 0] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            >
-              <ChevronDown className="w-6 h-6" />
-            </motion.div>
-          </motion.a>
-        </motion.div>
       </div>
+
+      {/* Scroll indicator */}
+      <motion.div
+        className="absolute bottom-8 md:bottom-12 left-1/2 -translate-x-1/2 z-20"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5 }}
+      >
+        <motion.a 
+          href="#about" 
+          className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary transition-colors group"
+          whileHover={{ y: 3 }}
+        >
+          <span className="text-xs md:text-sm font-mono group-hover:text-primary">scroll down</span>
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <ChevronDown className="w-5 h-5 md:w-6 md:h-6" />
+          </motion.div>
+        </motion.a>
+      </motion.div>
     </section>
   );
 };

@@ -23,8 +23,8 @@ const AboutSection = () => {
   };
 
   const infoItems = [
-    { icon: Mail, label: "Email", value: "oshritzagay@gmail.com", href: "mailto:oshritzagay@gmail.com" },
-    { icon: Phone, label: "Phone", value: "052-636-7723", href: "tel:+972526367723" },
+    { icon: Mail, label: "Email", value: "Oshritzagay@gmail.com", href: "mailto:Oshritzagay@gmail.com" },
+    { icon: Phone, label: "Phone", value: "0526367723", href: "tel:+972526367723" },
     { icon: Languages, label: "Languages", value: "Hebrew (Native), English (Advanced)" },
     { icon: Briefcase, label: "Experience", value: "3+ Years" },
     { icon: Calendar, label: "Available", value: "Open to Opportunities" },
