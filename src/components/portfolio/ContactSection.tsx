@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { Mail, Phone, Send, Github, Linkedin, Globe, Copy, Check } from 'lucide-react';
+import { Mail, Phone, Send, Github, Linkedin, Globe, Copy, Check, Download } from 'lucide-react';
 
 const ContactSection = () => {
   const ref = useRef(null);
@@ -154,9 +154,9 @@ const ContactSection = () => {
               ))}
             </div>
 
-            {/* Direct email link */}
+            {/* Direct email link and CV download */}
             <motion.div
-              className="text-center"
+              className="text-center flex flex-col sm:flex-row items-center justify-center gap-4"
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.9 }}
@@ -167,6 +167,14 @@ const ContactSection = () => {
               >
                 <Send className="w-5 h-5" />
                 Send Me a Message
+              </a>
+              <a
+                href="/Oshriel-Tzagay2025.pdf"
+                download="Oshriel-Tzagay2025.pdf"
+                className="inline-flex items-center gap-3 px-8 py-4 glass-strong gradient-border font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 hover:scale-105"
+              >
+                <Download className="w-5 h-5" />
+                Download CV
               </a>
             </motion.div>
 

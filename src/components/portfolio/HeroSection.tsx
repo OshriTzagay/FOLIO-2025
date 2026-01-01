@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ChevronDown, Terminal, Code2, Sparkles, Zap } from 'lucide-react';
+import { ChevronDown, Terminal, Code2, Sparkles, Zap, Download } from 'lucide-react';
 
 const HeroSection = () => {
   return (
@@ -185,6 +185,19 @@ const HeroSection = () => {
             >
               <span className="relative z-10 text-foreground group-hover:text-primary transition-colors">
                 Contact Me
+              </span>
+            </motion.a>
+
+            <motion.a
+              href="/Oshriel-Tzagay2025.pdf"
+              download="Oshriel-Tzagay2025.pdf"
+              className="group relative px-10 py-5 font-bold text-lg rounded-2xl glass-strong gradient-border overflow-hidden"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <span className="relative z-10 flex items-center gap-2 text-foreground group-hover:text-primary transition-colors">
+                <Download className="w-5 h-5" />
+                Download CV
               </span>
             </motion.a>
           </motion.div>
