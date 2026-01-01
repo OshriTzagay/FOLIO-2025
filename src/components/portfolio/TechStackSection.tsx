@@ -11,24 +11,27 @@ interface Tech {
 }
 
 const technologies: Tech[] = [
-  // Core
+  // Frontend Core
   { name: 'TypeScript', color: 'from-blue-500 to-blue-600', glow: 'shadow-blue-500/50' },
   { name: 'JavaScript', color: 'from-yellow-400 to-amber-500', glow: 'shadow-yellow-500/50' },
   { name: 'React.js', color: 'from-cyan-400 to-cyan-600', glow: 'shadow-cyan-500/50' },
+  { name: 'Next.js', color: 'from-gray-700 to-gray-900', glow: 'shadow-gray-500/50' },
   { name: 'React Native', color: 'from-cyan-500 to-teal-500', glow: 'shadow-teal-500/50' },
-  // State & Data
+  // Backend
+  { name: 'PHP', color: 'from-indigo-500 to-purple-600', glow: 'shadow-indigo-500/50' },
+  // State Management
   { name: 'Redux', color: 'from-purple-500 to-purple-700', glow: 'shadow-purple-500/50' },
   { name: 'Redux Toolkit', color: 'from-violet-500 to-purple-600', glow: 'shadow-violet-500/50' },
-  { name: 'React Hooks', color: 'from-sky-400 to-blue-500', glow: 'shadow-sky-500/50' },
   // Styling
   { name: 'HTML5', color: 'from-orange-500 to-red-500', glow: 'shadow-orange-500/50' },
   { name: 'CSS3', color: 'from-blue-500 to-indigo-500', glow: 'shadow-blue-500/50' },
   { name: 'SCSS', color: 'from-pink-500 to-rose-600', glow: 'shadow-pink-500/50' },
   { name: 'LESS', color: 'from-indigo-400 to-blue-500', glow: 'shadow-indigo-500/50' },
-  // UI Frameworks
-  { name: 'Bootstrap', color: 'from-violet-600 to-purple-700', glow: 'shadow-violet-500/50' },
   { name: 'MUI', color: 'from-blue-500 to-blue-700', glow: 'shadow-blue-500/50' },
-  { name: 'ES6+', color: 'from-yellow-500 to-orange-500', glow: 'shadow-yellow-500/50' },
+  // Databases
+  { name: 'SQL', color: 'from-orange-400 to-orange-600', glow: 'shadow-orange-500/50' },
+  { name: 'MongoDB', color: 'from-green-500 to-green-700', glow: 'shadow-green-500/50' },
+  { name: 'PostgreSQL', color: 'from-blue-600 to-indigo-700', glow: 'shadow-blue-500/50' },
 ];
 
 const containerVariants = {
@@ -111,6 +114,7 @@ const TechStackSection = () => {
             <motion.p
               className="text-lg text-muted-foreground max-w-md mx-auto"
               variants={itemVariants}
+              dir="rtl"
             >
               הטכנולוגיות והכלים שאני עובד איתם יום-יום
             </motion.p>
